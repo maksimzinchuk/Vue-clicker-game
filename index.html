@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vue clicker game</title>
+    <script src="https://npmcdn.com/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div id="app">
+    <h1 class="heading">Игра-кликер на Vue</h1>
+    <hr>
+    <section class="row">
+            <h2 class="text-center">Игрок</h2>
+            <div class="healthbar">
+                <div class="healthbar text-center" style="background-color: blue; margin: 0; color: white;" :style="{width: userHealth+ '%'}">
+                    {{ userHealth }}
+                </div>
+        </div>
+        <div>
+            <h2 class="text-center">Противник</h2>
+            <div class="healthbar">
+                <div class="healthbar text-center" style="background-color: red; margin: 0; color: white;" :style="{width: monsterHealth + '%'}">
+                    {{ monsterHealth }}
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="controls" v-if="!isRunning">
+            <button class="start-game" @click="startGame()">Начать новую игру</button>
+    </section>
+    <section class="controls" v-else>
+            <button class="attack" @click="attack()">Удар</button>
+            <button class="power-attack" @click="powerAttack()">Супер-удар</button>
+            <button class="heal" @click="heal()">Лечение</button>
+            <button class="give-up" @click="giveUp()">Сдаться</button>
+    </section>
+    <section class="log" v-if="steps.length > 0">
+            <ul>
+                <li v-for="step in steps" 
+                    :class="{'player-step': step.isUser, 'monster-step': !step.isUser}"
+                    >
+                    {{ step.text }}
+                </li>
+            </ul>
+    </section>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
